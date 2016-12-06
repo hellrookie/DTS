@@ -29,7 +29,6 @@ public class DeploySolution extends HttpServlet {
 			copyClassHandler.copyClasses(classesSrcPath, classesDestPath, overwrite);
 			copyClassesMsg = "Success";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			copyClassesMsg = e.getMessage();
 		}
 		
@@ -37,7 +36,6 @@ public class DeploySolution extends HttpServlet {
 			configEditHandler.WriteConfigFile(configFilePath, servletName, servletClass, servletUrlPattern);
 			writeConfigMsg = "Success";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			writeConfigMsg = e.getMessage();
 		}
 		
