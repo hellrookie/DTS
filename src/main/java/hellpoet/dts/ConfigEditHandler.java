@@ -1,4 +1,4 @@
-package hellpoet.ds;
+package hellpoet.dts;
 
 import java.io.File;
 import java.io.FileNotFoundException;
