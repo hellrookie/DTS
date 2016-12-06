@@ -3,19 +3,20 @@ package hellpoet.dts;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
+import org.dom4j.*;
 import org.dom4j.io.SAXReader;
-
+/* add config like:
+ * 
+ * <servlet>
+ * 	<servlet-name></servlet-name>
+ *	<servlet-class></servlet-class>
+ * </servlet>
+ * <servlet-mapping>
+ *	<servlet-name></servlet-name>
+ *	<url-pattern></url-pattern>
+ * </servlet-mapping>
+ */
 public class ConfigEditHandler {
-	private static final String servletConfig = "\t<servlet>\n"
-												+"\t\t<servlet-name></servlet-name>\n"
-												+"\t\t<servlet-class></servlet-class>\n"
-												+"\t</servlet>\n"
-												+"\t<servlet-mapping>\n"
-												+"\t\t<servlet-name></servlet-name>\n"
-												+"\t\t<url-pattern></url-pattern>\n"
-												+"\t</servlet-mapping>\n";
 	private static ConfigEditHandler instance;
 	
 	private ConfigEditHandler(){
@@ -36,6 +37,24 @@ public class ConfigEditHandler {
 		}
 		
 		SAXReader reader = new SAXReader();
-		Document   document = reader.read(configfile); 
+		Document doc = reader.read(configfile);
+		Element root = doc.getRootElement();
+		Element servletEle = addNode(root, "servlet");
+		addNode(servletEle, "servlet-name", servletName);
+		addNode(servletEle, "servlet-class", servletClass);
+		Element servletMappingEle = addNode(root, "servlet-mapping");
+		addNode(servletMappingEle, "servlet-name", servletName);
+		addNode(servletMappingEle, "url-pattern", urlPattern);
+	}
+	
+	private Element addNode(Element parentElement, String name){
+		Element newEle = parentElement.addElement(name);
+		return newEle;
+	}
+	
+	private Element addNode(Element parentElement, String name, String value){
+		Element newEle = parentElement.addElement(name);
+		newEle.setText(value);
+		return newEle;
 	}
 }

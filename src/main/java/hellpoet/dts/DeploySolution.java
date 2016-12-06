@@ -1,5 +1,8 @@
 package hellpoet.dts;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 public class DeploySolution extends HttpServlet {
 	private static final long serialVersionUID = 2036739917108327606L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response){
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String copyClassesMsg = "";
 		String writeConfigMsg = "";
 		
+		String configFilePath = request.getParameter("ConfigFilePath");
 		String servletName = request.getParameter("ServletName");
 		String servletUrlPattern = request.getParameter("ServletUriPattern");
 		String servletClass = request.getParameter("ServletClass");
@@ -20,11 +24,30 @@ public class DeploySolution extends HttpServlet {
 		boolean overwrite = Boolean.getBoolean(request.getParameter("OverwriteClasses"));
 		
 		CopyClassHandler copyClassHandler = CopyClassHandler.getInstance();
+		ConfigEditHandler configEditHandler = ConfigEditHandler.getInstance();
 		try {
 			copyClassHandler.copyClasses(classesSrcPath, classesDestPath, overwrite);
+			copyClassesMsg = "Success";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			copyClassesMsg = e.getMessage();
 		}
+		
+		try{
+			configEditHandler.WriteConfigFile(configFilePath, servletName, servletClass, servletUrlPattern);
+			writeConfigMsg = "Success";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			writeConfigMsg = e.getMessage();
+		}
+		
+		PrintWriter writer = response.getWriter();
+		writer.println("<html>");
+		writer.println("<body>");
+		writer.println("<body>");
+		writer.println("Copy classes result: " + copyClassesMsg);
+		writer.println("Edit config file result: " + writeConfigMsg);
+		writer.println("</body>");
+		writer.println("</html>");
 	}
 }
