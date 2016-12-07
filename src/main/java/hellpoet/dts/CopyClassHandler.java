@@ -40,12 +40,18 @@ public class CopyClassHandler {
 			File parentFolder = destFolder.getParentFile();
 			if(parentFolder == null || !parentFolder.isDirectory()){
 				throw new Exception(String.format("Cannot create folder: %s because parent folder not exist.", destFolder.getAbsolutePath()));
+			}else{
+				destFolder.mkdir();
 			}
 		}
-		for(String childFileName : sourceFolder.list()){
-			copyFile(new File(sourceFolder, childFileName),
-					new File(destFolder, childFileName),
-					overwrite);
+		for (String childFileName : sourceFolder.list()) {
+			File sourceFile = new File(sourceFolder, childFileName);
+			File destFile = new File(destFolder, childFileName);
+			if (sourceFile.isDirectory()) {
+				copyFolder(sourceFile, destFile, overwrite);
+			} else {
+				copyFile(sourceFile, destFile, overwrite);
+			}
 		}
 	}
 	
@@ -56,14 +62,13 @@ public class CopyClassHandler {
 	 * @return return true means need copy, false means not.
 	 */
 	private boolean checkBeforeCopy(File sourceFile, File destFile, Boolean overwrite) throws Exception{
+		if(!sourceFile.exists()){
+			throw new Exception(String.format("Ths source: %s is not found.", sourceFile.getAbsolutePath()));
+		}
 		if (overwrite) {
 			delete(destFile);
 		}else{
 			return !destFile.exists();
-		}
-		
-		if(!sourceFile.exists()){
-			throw new Exception(String.format("Ths source file: %s is not found.", sourceFile.getAbsolutePath()));
 		}
 		return true;
 	}

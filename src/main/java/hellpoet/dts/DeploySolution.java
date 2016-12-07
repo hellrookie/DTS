@@ -10,18 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 public class DeploySolution extends HttpServlet {
 	private static final long serialVersionUID = 2036739917108327606L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		String copyClassesMsg = "";
 		String writeConfigMsg = "";
 		
 		String configFilePath = request.getParameter("ConfigFilePath");
 		String servletName = request.getParameter("ServletName");
-		String servletUrlPattern = request.getParameter("ServletUriPattern");
+		String servletUrlPattern = request.getParameter("ServletUrlPattern");
 		String servletClass = request.getParameter("ServletClass");
 		String classesSrcPath = request.getParameter("ClassesSrcPath");
 		String classesDestPath = request.getParameter("ClassesDestPath");
-		boolean overwrite = Boolean.getBoolean(request.getParameter("OverwriteClasses"));
+		boolean overwrite = (request.getParameter("OverwriteClasses") != null);
 		
 		CopyClassHandler copyClassHandler = CopyClassHandler.getInstance();
 		ConfigEditHandler configEditHandler = ConfigEditHandler.getInstance();

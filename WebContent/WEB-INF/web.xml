@@ -9,4 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+  	<servlet-name>DTS</servlet-name>
+  	<servlet-class>hellpoet.dts.DeploySolution</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DTS</servlet-name>
+  	<url-pattern>/ds</url-pattern>
+  </servlet-mapping>
 </web-app>

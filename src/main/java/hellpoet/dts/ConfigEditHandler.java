@@ -2,9 +2,14 @@ package hellpoet.dts;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.dom4j.*;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 /* add config like:
  * 
  * <servlet>
@@ -30,7 +35,7 @@ public class ConfigEditHandler {
 		return instance;
 	}
 	
-	public void WriteConfigFile(String configFilePath, String servletName, String servletClass, String urlPattern) throws FileNotFoundException, DocumentException{
+	public void WriteConfigFile(String configFilePath, String servletName, String servletClass, String urlPattern) throws DocumentException, IOException{
 		File configfile = new File(configFilePath);
 		if(!configfile.exists()){
 			throw new FileNotFoundException(String.format("File path: %s.", configFilePath));
@@ -45,6 +50,10 @@ public class ConfigEditHandler {
 		Element servletMappingEle = addNode(root, "servlet-mapping");
 		addNode(servletMappingEle, "servlet-name", servletName);
 		addNode(servletMappingEle, "url-pattern", urlPattern);
+		OutputFormat format = OutputFormat.createPrettyPrint(); 
+		XMLWriter writer = new XMLWriter(new FileOutputStream(configfile, false),format); 
+		writer.write(doc);
+		writer.close();
 	}
 	
 	private Element addNode(Element parentElement, String name){

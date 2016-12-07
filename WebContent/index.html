@@ -5,33 +5,15 @@
 <title>Deploy Tomcat Solution</title>
 </head>
 <body>
-<script language="javascript">
-function browseFolder(path) {
-    try {
-        var Message = "\u8bf7\u9009\u62e9\u6587\u4ef6\u5939"; //选择框提示信息
-        var Shell = new ActiveXObject("Shell.Application");
-        var Folder = Shell.BrowseForFolder(0, Message, 64, 17); //起始目录为：我的电脑
-        //var Folder = Shell.BrowseForFolder(0, Message, 0); //起始目录为：桌面
-        if (Folder != null) {
-            Folder = Folder.items(); // 返回 FolderItems 对象
-            Folder = Folder.item(); // 返回 Folderitem 对象
-            Folder = Folder.Path; // 返回路径
-            if (Folder.charAt(Folder.length - 1) != "\\") {
-                Folder = Folder + "\\";
-            }
-            document.getElementById(path).value = Folder;
-            return Folder;
-        }
-    }
-    catch (e) {
-        alert(e.message);
-    }
-}
-</script>
-<form method='post'>
-<input id="ConfigFilePath" type="text" name="ConfigFilePath" size="30">
-<input type=button value="选择文件夹" onclick="browseFolder('path')">
-<input type=file value="file">
+<form method="post" action="/TomcatDeploySolution/ds">
+<input type="file" name="ConfigFilePath"/><br/>
+ServletName:<input type="text" name="ServletName"/><br/>
+ServletUrlPattern:<input type="text" name="ServletUrlPattern"/><br/>
+ServletClass:<input type="text" name="ServletClass"/><br/>
+ClassesSrcPath:<input type="text" name="ClassesSrcPath"/><br/>
+ClassesDestPath:<input type="text" name="ClassesDestPath"/><br/>
+OverwriteClasses:<input type="checkbox" name="OverwriteClasses"/><br/>
+<input type="submit" value="Start Deploy!"><br/>
 </form>
 </body>
 </html>
