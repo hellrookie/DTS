@@ -15,6 +15,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>DTS</servlet-name>
-  	<url-pattern>/ds</url-pattern>
+  	<url-pattern>/report</url-pattern>
   </servlet-mapping>
 </web-app>

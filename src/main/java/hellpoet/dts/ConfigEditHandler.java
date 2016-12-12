@@ -38,7 +38,7 @@ public class ConfigEditHandler {
 	public void WriteConfigFile(String configFilePath, String servletName, String servletClass, String urlPattern) throws DocumentException, IOException{
 		File configfile = new File(configFilePath);
 		if(!configfile.exists()){
-			throw new FileNotFoundException(String.format("File path: %s.", configFilePath));
+			throw new FileNotFoundException(String.format("Cannot find the file, path: %s.", configFilePath));
 		}
 		
 		SAXReader reader = new SAXReader();

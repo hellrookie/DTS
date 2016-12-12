@@ -5,14 +5,14 @@
 <title>Deploy Tomcat Solution</title>
 </head>
 <body>
-<form method="post" action="/TomcatDeploySolution/ds">
-<input type="file" name="ConfigFilePath"/><br/>
-ServletName:<input type="text" name="ServletName"/><br/>
-ServletUrlPattern:<input type="text" name="ServletUrlPattern"/><br/>
-ServletClass:<input type="text" name="ServletClass"/><br/>
-ClassesSrcPath:<input type="text" name="ClassesSrcPath"/><br/>
-ClassesDestPath:<input type="text" name="ClassesDestPath"/><br/>
-OverwriteClasses:<input type="checkbox" name="OverwriteClasses"/><br/>
+<form method="post" action="/DTS/report">
+Config file path:<input type="text" name="ConfigFilePath"/><br/>
+Servlet name:<input type="text" name="ServletName"/><br/>
+Servlet url pattern:<input type="text" name="ServletUrlPattern"/><br/>
+Servlet class:<input type="text" name="ServletClass"/><br/>
+Source classes path:<input type="text" name="ClassesSrcPath"/><br/>
+Destination classes path:<input type="text" name="ClassesDestPath"/><br/>
+Overwrite files under destination classes:<input type="checkbox" name="OverwriteClasses"/><br/>
 <input type="submit" value="Start Deploy!"><br/>
 </form>
 </body>
